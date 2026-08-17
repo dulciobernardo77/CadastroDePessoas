@@ -22,12 +22,21 @@ public class PessoaModel {
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     private String nome ;
+
     private   int idade;
+
     private String Nacionalidade;
-    private String NIF;
+
+    @Column(unique = true)
     private String BI;
+
     private char sexo;
+
+    @Column(unique = true)
+
     private String email;
+
+    @Column(unique = true)
     private int telefone;
 
     //@ManyToOne - um pessoa tem uma unica tarefa
