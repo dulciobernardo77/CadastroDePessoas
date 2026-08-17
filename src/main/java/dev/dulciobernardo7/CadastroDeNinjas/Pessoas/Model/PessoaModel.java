@@ -1,6 +1,8 @@
-package dev.dulciobernardo7.CadastroDeNinjas;
+package dev.dulciobernardo7.CadastroDeNinjas.Pessoas.Model;
 
+import dev.dulciobernardo7.CadastroDeNinjas.Tarefas.Model.TarefasModel;
 import jakarta.persistence.*;
+import java.util.List;
 
 
 //Entity ele transforma uma classe em entidade do banco de dados
@@ -20,6 +22,11 @@ public class PessoaModel {
     private char sexo;
     private String email;
     private int telefone;
+
+    //@ManyToOne - um pessoa tem uma unica tarefa
+    @ManyToMany
+    @JoinColumn(name =  "tarefas_id")//foreing Key ou chave estrangeira
+    private List<TarefasModel> tarefas;
 
    //construtores vazio e o preenchido
     //no-args constructo
