@@ -33,7 +33,6 @@ public class PessoaModel {
     private char sexo;
 
     @Column(unique = true)
-
     private String email;
 
     @Column(unique = true)
