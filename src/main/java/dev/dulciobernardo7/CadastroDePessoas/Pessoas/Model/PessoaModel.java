@@ -21,15 +21,19 @@ public class PessoaModel {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
+     @Column(name = "name")
     private String nome ;
 
+    @Column(name = "idade")
     private   int idade;
 
-    private String Nacionalidade;
+    @Column(name = "nacionalidade")
+    private String nacionalidade;
 
     @Column(unique = true)
     private String BI;
 
+    @Column(name = "sexo")
     private char sexo;
 
     @Column(unique = true)

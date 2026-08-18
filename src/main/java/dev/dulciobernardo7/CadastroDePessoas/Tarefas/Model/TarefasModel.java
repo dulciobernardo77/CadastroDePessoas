@@ -20,12 +20,15 @@ public class TarefasModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+
+    @Column(name = "nomedatarefas")
     private String nomeDaTarefa;
+
+    @Column(name = "dificuldade")
     private String dificuldade;
 
     //OneToMany - uma tarefa pode ter varios ninjas
     @OneToMany(mappedBy = "tarefa")
     private List<PessoaModel> pessoa;
-
-
+    
 }
