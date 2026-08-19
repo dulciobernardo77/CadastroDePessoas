@@ -11,7 +11,7 @@ import java.util.List;
 
 //Entity ele transforma uma classe em entidade do banco de dados
 @Entity
-@Table(name = "tv_Cadastro_de_Pessoas")
+@Table(name = "tb_Cadastro_de_Pessoas")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,9 +43,8 @@ public class PessoaModel {
     private int telefone;
 
     //@ManyToOne - um pessoa tem uma unica tarefa
-    @ManyToMany
-    @JoinColumn(name =  "tarefas_id")//foreing Key ou chave estrangeira
-    private List<TarefasModel> tarefas;
-
+    @ManyToOne
+    @JoinColumn(name = "tarefas_id")//foreing Key ou chave estrangeira
+    private  TarefasModel tarefa;
 
 }

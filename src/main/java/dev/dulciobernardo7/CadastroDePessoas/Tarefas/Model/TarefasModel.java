@@ -29,6 +29,6 @@ public class TarefasModel {
 
     //OneToMany - uma tarefa pode ter varios ninjas
     @OneToMany(mappedBy = "tarefa")
-    private List<PessoaModel> pessoa;
-    
+    private List<PessoaModel> pessoas;
+
 }
