@@ -5,6 +5,7 @@ import dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model.TarefasModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PessoaService {
@@ -20,7 +21,8 @@ public class PessoaService {
     }
 
     //Metodo para lista todo as pessoas pelo id
-   // public List<TarefasModel> ListatodasPessoasporId(){
- //       return pessoasRepository.getReferenceById(1L);
-  //  }
+    public PessoaModel ListatodasPessoasporId(Long number){
+      Optional<PessoaModel> pessoaModel = pessoasRepository.findById(number);
+      return  pessoaModel.orElse(null);
+    }
 }

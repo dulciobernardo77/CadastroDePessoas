@@ -32,9 +32,9 @@ public class PessoaController {
     }
 
     //Mostrar ninja por id (READ)
-    @GetMapping("/todoID")
-    public  String MostrarTodasPessoasPorId(){
-        return "Mostrar Todas Pessoas";
+    @GetMapping("/lista/{number}")
+    public  PessoaModel MostrarTodasPessoasPorId(@PathVariable Long number){
+        return pessoaService.ListatodasPessoasporId(number);
     }
 
     // Alterar dados dos ninjas (UPDATE)
