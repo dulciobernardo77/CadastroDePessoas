@@ -1,5 +1,6 @@
 package dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class TarefasModel {
 
     //OneToMany - uma tarefa pode ter varios ninjas
     @OneToMany(mappedBy = "tarefa")
+    @JsonIgnore
     private List<PessoaModel> pessoas;
 
 }

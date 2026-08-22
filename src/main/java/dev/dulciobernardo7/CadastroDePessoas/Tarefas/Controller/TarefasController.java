@@ -1,23 +1,20 @@
-package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Controller;
+package dev.dulciobernardo7.CadastroDePessoas.Tarefas.Controller;
 
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaService;
+import dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model.TarefasModel;
+import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa")
-public class PessoaController {
-    private PessoaService pessoaService;
+@RequestMapping("/tarefas")
+public class TarefasController {
 
-    public PessoaController(PessoaService pessoaService) {
-        this.pessoaService = pessoaService;
-    }
+    private TarefasService tarefasService;
 
-    @GetMapping(  "/boavindas")
-    public String boaVindas(){
-        return "Seja bem vindo na minha aplicao backend de cadastro de pessoas";
+    public TarefasController(TarefasService tarefasService) {
+        this.tarefasService = tarefasService;
     }
 
     // Adicionar ninja (CREATE)
@@ -27,14 +24,14 @@ public class PessoaController {
     }
     //Mostrar todos os ninjas (READ)
     @GetMapping("/lista")
-    public List<PessoaModel> TodasPessoas(){
-        return pessoaService.ListatodasPessoas();
+    public List<TarefasModel> TodasPessoas(){
+        return tarefasService.ListatodasPessoas();
     }
 
     //Mostrar ninja por id (READ)
     @GetMapping("/lista/{number}")
-    public  PessoaModel MostrarTodasPessoasPorId(@PathVariable Long number){
-        return pessoaService.ListatodasPessoasporId(number);
+    public  TarefasModel MostrarTodasPessoasPorId(@PathVariable Long number){
+        return tarefasService.ListatodasPessoasPorId(number);
     }
 
     // Alterar dados dos ninjas (UPDATE)
