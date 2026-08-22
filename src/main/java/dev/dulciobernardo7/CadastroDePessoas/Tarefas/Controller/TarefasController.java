@@ -29,9 +29,9 @@ public class TarefasController {
     }
 
     //Mostrar ninja por id (READ)
-    @GetMapping("/todoID")
-    public  String MostrarTodasPessoasPorId(){
-        return "Mostrar Todas Pessoas";
+    @GetMapping("/lista/{number}")
+    public  TarefasModel MostrarTodasPessoasPorId(@PathVariable Long number){
+        return tarefasService.ListatodasPessoasPorId(number);
     }
 
     // Alterar dados dos ninjas (UPDATE)

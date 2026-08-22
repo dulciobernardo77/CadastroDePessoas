@@ -17,15 +17,15 @@ public class TarefasService {
         this.tarefasRepository = tarefasRepository;
     }
 
-    //Metodo para lista todo o pessoas
+    //Metodo para lista todo as tarefas
     public List<TarefasModel> ListatodasPessoas(){
          return tarefasRepository.findAll();
     }
 
-    //Metodo para lista todo as pessoas pelo id
-   /* public PessoaModel ListatodasPessoas(int number){
-        Optional<PessoaModel> pessoaModel = PessoasRepository.findAllById(number);
-        return  PessoasRepository. ;
-    }*/
+    //Metodo para lista todo as Tarefas pelo id
+   public TarefasModel ListatodasPessoasPorId(Long number){
+        Optional<TarefasModel> tarefasModel = tarefasRepository.findById(number);
+        return tarefasModel.orElse(null);
+    }
 
 }
