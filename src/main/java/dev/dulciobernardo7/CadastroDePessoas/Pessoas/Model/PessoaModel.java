@@ -20,8 +20,9 @@ public class PessoaModel {
      //Atributos de uma pessoa
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-     @Column(name = "name")
+     private Long id;
+
+     @Column(name = "nome")
     private String nome ;
 
     @Column(name = "idade")
@@ -30,8 +31,8 @@ public class PessoaModel {
     @Column(name = "nacionalidade")
     private String nacionalidade;
 
-    @Column(unique = true)
-    private String BI;
+    @Column(name = "bi")
+    private String bi;
 
     @Column(name = "sexo")
     private char sexo;
@@ -40,7 +41,10 @@ public class PessoaModel {
     private String email;
 
     @Column(unique = true)
-    private int telefone;
+    private String telefone;
+
+    @Column(name = "imgUrl")
+    private String imgUrl;
 
     //@ManyToOne - um pessoa tem uma unica tarefa
     @ManyToOne
