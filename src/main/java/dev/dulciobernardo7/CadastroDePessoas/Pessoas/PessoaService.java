@@ -25,4 +25,11 @@ public class PessoaService {
       Optional<PessoaModel> pessoaModel = pessoasRepository.findById(number);
       return  pessoaModel.orElse(null);
     }
+
+    //Metodo para cadastro de fucionario
+    public PessoaModel cadastroDeFuncionario(PessoaModel pessoas){
+        return pessoasRepository.save(pessoas);
+    }
+
+
 }

@@ -20,7 +20,7 @@ public class TarefasModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column(name = "nomedatarefas")
     private String nomeDaTarefa;

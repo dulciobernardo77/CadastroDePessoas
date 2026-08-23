@@ -22,10 +22,10 @@ public class PessoaController {
 
     // Adicionar ninja (CREATE)
     @PostMapping("/cadastrar")
-    public  String CadastraPessoa(){
-        return "Cadastrada com sucesso";
+    public  PessoaModel CadastraPessoa(@RequestBody PessoaModel pessoaModel){
+        return pessoaService.cadastroDeFuncionario(pessoaModel);
     }
-    //Mostrar todos os ninjas (READ)
+     //Mostrar todos os ninjas (READ)
     @GetMapping("/lista")
     public List<PessoaModel> TodasPessoas(){
         return pessoaService.ListatodasPessoas();
