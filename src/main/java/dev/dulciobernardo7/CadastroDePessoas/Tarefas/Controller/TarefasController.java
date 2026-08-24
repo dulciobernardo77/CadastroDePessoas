@@ -40,9 +40,9 @@ public class TarefasController {
         return tarefasService.AtualizarTarefas(number,tarefas);
     }
 
-   /* // Deletar Ninja (DELETE)
+    // Deletar Ninja (DELETE)
     @DeleteMapping("/Deletar/{number}")
     public void ExcluirPessoaPorId(@PathVariable Long number){
         tarefasService.ExcluirPessoaPorId(number);
-    }*/
+    }
 }

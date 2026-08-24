@@ -37,4 +37,10 @@ public class TarefasService {
         return null;
     }
 
+    //Metodo para Deletar funcionario (DELETE)
+    public void ExcluirPessoaPorId(Long number){
+        tarefasRepository.deleteById(number);
+    }
+
+
 }
