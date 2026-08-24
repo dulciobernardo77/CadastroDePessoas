@@ -35,14 +35,14 @@ public class TarefasController {
     }
 
     // Alterar dados dos ninjas (UPDATE)
-    @PostMapping("/alteraID")
-    public String AlteraPorId(){
-        return "Alterar por Id";
+    @PostMapping("/altera/{number}")
+    public TarefasModel AlteraPorId(@PathVariable Long number, @RequestBody TarefasModel tarefas){
+        return tarefasService.AtualizarTarefas(number,tarefas);
     }
 
-    // Deletar Ninja (DELETE)
-    @DeleteMapping("/DeletarID")
-    public String ExcluirPessoaPorId(){
-        return"Pessoa Deletada por id";
-    }
+   /* // Deletar Ninja (DELETE)
+    @DeleteMapping("/Deletar/{number}")
+    public void ExcluirPessoaPorId(@PathVariable Long number){
+        tarefasService.ExcluirPessoaPorId(number);
+    }*/
 }

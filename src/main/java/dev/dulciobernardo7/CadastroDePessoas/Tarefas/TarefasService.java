@@ -28,4 +28,13 @@ public class TarefasService {
         return tarefasModel.orElse(null);
     }
 
+    // Metodo para Alterar dados dos ninjas (UPDATE)
+    public TarefasModel AtualizarTarefas(Long number , TarefasModel tarefas){
+        if (tarefasRepository.existsById(number)){
+            tarefas.setId(number);
+            return tarefasRepository.save(tarefas);
+        }
+        return null;
+    }
+
 }
