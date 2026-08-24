@@ -31,5 +31,9 @@ public class PessoaService {
         return pessoasRepository.save(pessoas);
     }
 
+    //Metodo para eliminar  fucionario
+    public void ExcluirPessoaPorId(Long number){
+        pessoasRepository.deleteById(number);
+    }
 
 }
