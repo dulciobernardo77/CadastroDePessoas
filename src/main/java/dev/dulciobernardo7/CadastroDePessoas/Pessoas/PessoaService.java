@@ -36,4 +36,12 @@ public class PessoaService {
         pessoasRepository.deleteById(number);
     }
 
+    // Metodo para Alterar dados dos ninjas (UPDATE)
+    public  PessoaModel Atualizarfuncionario(Long number, PessoaModel pessoa){
+        if (pessoasRepository.existsById(number)){
+            pessoa.setId(number);
+            return pessoasRepository.save(pessoa);
+        }
+        return null;
+    }
 }

@@ -39,9 +39,9 @@ public class PessoaController {
     }
 
     // Alterar dados dos ninjas (UPDATE)
-    @PostMapping("/alteraID")
-    public String AlteraPorId(){
-        return "Alterar por Id";
+    @PutMapping("/alterar/{number}")
+    public PessoaModel AlteraPorId(@PathVariable Long number,@RequestBody PessoaModel pessoa){
+        return pessoaService.Atualizarfuncionario(number, pessoa);
     }
 
     // Deletar Ninja (DELETE)
@@ -49,6 +49,5 @@ public class PessoaController {
     public ResponseEntity<Void> ExcluirPessoaPorId(@PathVariable Long number ){
          pessoaService.ExcluirPessoaPorId(number);
         return ResponseEntity.noContent().build();
-
     }
 }
