@@ -2,12 +2,13 @@ package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Controller;
 
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/pessoa")
+@RequestMapping("/pessoas")
 public class PessoaController {
     private PessoaService pessoaService;
 
@@ -38,14 +39,15 @@ public class PessoaController {
     }
 
     // Alterar dados dos ninjas (UPDATE)
-    @PostMapping("/alteraID")
-    public String AlteraPorId(){
-        return "Alterar por Id";
+    @PutMapping("/alterar/{number}")
+    public PessoaModel AlteraPorId(@PathVariable Long number,@RequestBody PessoaModel pessoa){
+        return pessoaService.Atualizarfuncionario(number, pessoa);
     }
 
     // Deletar Ninja (DELETE)
-    @DeleteMapping("/DeletarID")
-    public String ExcluirPessoaPorId(){
-        return"Pessoa Deletada por id";
+    @DeleteMapping("/deletar/{number}")
+    public ResponseEntity<Void> ExcluirPessoaPorId(@PathVariable Long number ){
+         pessoaService.ExcluirPessoaPorId(number);
+        return ResponseEntity.noContent().build();
     }
 }

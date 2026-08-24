@@ -31,5 +31,17 @@ public class PessoaService {
         return pessoasRepository.save(pessoas);
     }
 
+    //Metodo para eliminar  fucionario
+    public void ExcluirPessoaPorId(Long number){
+        pessoasRepository.deleteById(number);
+    }
 
+    // Metodo para Alterar dados dos ninjas (UPDATE)
+    public  PessoaModel Atualizarfuncionario(Long number, PessoaModel pessoa){
+        if (pessoasRepository.existsById(number)){
+            pessoa.setId(number);
+            return pessoasRepository.save(pessoa);
+        }
+        return null;
+    }
 }
