@@ -25,6 +25,8 @@ public class PessoaMapper {
 
     public PessoaDTO map(PessoaModel pessoaModel){
         PessoaDTO pessoaDTO = new PessoaDTO();
+
+        pessoaDTO.setId(pessoaModel.getId());
         pessoaDTO.setNome(pessoaModel.getNome());
         pessoaDTO.setIdade(pessoaModel.getIdade());
         pessoaDTO.setNacionalidade(pessoaModel.getNacionalidade());
