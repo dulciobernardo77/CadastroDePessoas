@@ -29,19 +29,19 @@ public class PessoaController {
     }
      //Mostrar todos os ninjas (READ)
     @GetMapping("/lista")
-    public List<PessoaModel> TodasPessoas(){
+    public List<PessoaDTO> TodasPessoas(){
         return pessoaService.ListatodasPessoas();
     }
 
     //Mostrar ninja por id (READ)
     @GetMapping("/lista/{number}")
-    public  PessoaModel MostrarTodasPessoasPorId(@PathVariable Long number){
+    public  PessoaDTO MostrarTodasPessoasPorId(@PathVariable Long number){
         return pessoaService.ListatodasPessoasporId(number);
     }
 
     // Alterar dados dos ninjas (UPDATE)
     @PutMapping("/alterar/{number}")
-    public PessoaModel AlteraPorId(@PathVariable Long number,@RequestBody PessoaModel pessoa){
+    public PessoaDTO AlteraPorId(@PathVariable Long number,@RequestBody PessoaDTO pessoa){
         return pessoaService.Atualizarfuncionario(number, pessoa);
     }
 
