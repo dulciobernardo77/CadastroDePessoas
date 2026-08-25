@@ -6,29 +6,38 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PessoaService {
     private PessoasRepository pessoasRepository;
+    private  PessoaMapper pessoaMapper;
 
-    public PessoaService(PessoasRepository pessoasRepository){
+    public PessoaService(PessoasRepository pessoasRepository, PessoaMapper pessoaMapper) {
         this.pessoasRepository = pessoasRepository;
+        this.pessoaMapper = pessoaMapper;
     }
 
     //Metodo para lista todo o pessoas
-    public List<PessoaModel> ListatodasPessoas(){
-        return pessoasRepository.findAll();
+    public List<PessoaDTO> ListatodasPessoas(){
+        List<PessoaModel> pessoaModelList = pessoasRepository.findAll();
+        return  pessoaModelList.stream()
+                .map(pessoaMapper::map)
+                .collect(Collectors.toList());
     }
 
     //Metodo para lista todo as pessoas pelo id
-    public PessoaModel ListatodasPessoasporId(Long number){
+    public PessoaDTO ListatodasPessoasporId(Long number){
       Optional<PessoaModel> pessoaModel = pessoasRepository.findById(number);
-      return  pessoaModel.orElse(null);
+      return  pessoaModel.map(pessoaMapper::map)
+              .orElse(null);
     }
 
     //Metodo para cadastro de fucionario
-    public PessoaModel cadastroDeFuncionario(PessoaModel pessoas){
-        return pessoasRepository.save(pessoas);
+    public PessoaDTO cadastroDeFuncionario(PessoaDTO pessoaDTO){
+        PessoaModel pessoaModel =  pessoaMapper.map(pessoaDTO);
+        pessoaModel =   pessoasRepository.save(pessoaModel);
+        return  pessoaMapper.map(pessoaModel);
     }
 
     //Metodo para eliminar  fucionario
@@ -37,10 +46,13 @@ public class PessoaService {
     }
 
     // Metodo para Alterar dados dos ninjas (UPDATE)
-    public  PessoaModel Atualizarfuncionario(Long number, PessoaModel pessoa){
-        if (pessoasRepository.existsById(number)){
-            pessoa.setId(number);
-            return pessoasRepository.save(pessoa);
+    public  PessoaDTO Atualizarfuncionario(Long number, PessoaDTO pessoaDTO){
+        Optional<PessoaModel> pessoaExistente = pessoasRepository.findById(number);
+        if (pessoaExistente.isPresent()){
+            PessoaModel pessoaAtualizada = pessoaMapper.map(pessoaDTO);
+            pessoaAtualizada.setId(number);
+            PessoaModel pessoaSalva = pessoasRepository.save(pessoaAtualizada);
+            return pessoaMapper.map(pessoaSalva) ;
         }
         return null;
     }

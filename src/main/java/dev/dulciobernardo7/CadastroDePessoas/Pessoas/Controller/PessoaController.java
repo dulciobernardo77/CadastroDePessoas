@@ -1,6 +1,7 @@
 package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Controller;
 
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
+import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaDTO;
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,24 +24,24 @@ public class PessoaController {
 
     // Adicionar ninja (CREATE)
     @PostMapping("/cadastrar")
-    public  PessoaModel CadastraPessoa(@RequestBody PessoaModel pessoaModel){
+    public PessoaDTO CadastraPessoa(@RequestBody PessoaDTO pessoaModel){
         return pessoaService.cadastroDeFuncionario(pessoaModel);
     }
      //Mostrar todos os ninjas (READ)
     @GetMapping("/lista")
-    public List<PessoaModel> TodasPessoas(){
+    public List<PessoaDTO> TodasPessoas(){
         return pessoaService.ListatodasPessoas();
     }
 
     //Mostrar ninja por id (READ)
     @GetMapping("/lista/{number}")
-    public  PessoaModel MostrarTodasPessoasPorId(@PathVariable Long number){
+    public  PessoaDTO MostrarTodasPessoasPorId(@PathVariable Long number){
         return pessoaService.ListatodasPessoasporId(number);
     }
 
     // Alterar dados dos ninjas (UPDATE)
     @PutMapping("/alterar/{number}")
-    public PessoaModel AlteraPorId(@PathVariable Long number,@RequestBody PessoaModel pessoa){
+    public PessoaDTO AlteraPorId(@PathVariable Long number,@RequestBody PessoaDTO pessoa){
         return pessoaService.Atualizarfuncionario(number, pessoa);
     }
 

@@ -43,6 +43,9 @@ public class PessoaModel {
     @Column(unique = true)
     private String telefone;
 
+    @Column(name = "nivel")
+    private String nivel;
+
     @Column(name = "imgUrl")
     private String imgUrl;
 
