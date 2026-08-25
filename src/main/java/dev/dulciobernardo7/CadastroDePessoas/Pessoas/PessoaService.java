@@ -10,9 +10,11 @@ import java.util.Optional;
 @Service
 public class PessoaService {
     private PessoasRepository pessoasRepository;
+    private  PessoaMapper pessoaMapper;
 
-    public PessoaService(PessoasRepository pessoasRepository){
+    public PessoaService(PessoasRepository pessoasRepository, PessoaMapper pessoaMapper) {
         this.pessoasRepository = pessoasRepository;
+        this.pessoaMapper = pessoaMapper;
     }
 
     //Metodo para lista todo o pessoas
@@ -27,8 +29,10 @@ public class PessoaService {
     }
 
     //Metodo para cadastro de fucionario
-    public PessoaModel cadastroDeFuncionario(PessoaModel pessoas){
-        return pessoasRepository.save(pessoas);
+    public PessoaDTO cadastroDeFuncionario(PessoaDTO pessoaDTO){
+        PessoaModel pessoaModel =  pessoaMapper.map(pessoaDTO);
+        pessoaModel =   pessoasRepository.save(pessoaModel);
+        return  pessoaMapper.map(pessoaModel);
     }
 
     //Metodo para eliminar  fucionario

@@ -1,6 +1,7 @@
 package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Controller;
 
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
+import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaDTO;
 import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class PessoaController {
 
     // Adicionar ninja (CREATE)
     @PostMapping("/cadastrar")
-    public  PessoaModel CadastraPessoa(@RequestBody PessoaModel pessoaModel){
+    public PessoaDTO CadastraPessoa(@RequestBody PessoaDTO pessoaModel){
         return pessoaService.cadastroDeFuncionario(pessoaModel);
     }
      //Mostrar todos os ninjas (READ)
