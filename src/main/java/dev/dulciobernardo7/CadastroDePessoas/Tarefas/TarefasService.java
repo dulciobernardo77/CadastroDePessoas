@@ -1,7 +1,6 @@
 package dev.dulciobernardo7.CadastroDePessoas.Tarefas;
 
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoasRepository;
+
 import dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model.TarefasModel;
 import org.springframework.stereotype.Service;
 
