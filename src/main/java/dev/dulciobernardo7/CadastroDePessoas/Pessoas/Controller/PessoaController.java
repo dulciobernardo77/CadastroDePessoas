@@ -29,10 +29,12 @@ public class PessoaController {
         PessoaDTO pessoaDTO1 =  pessoaService.cadastroDeFuncionario(pessoaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Funcionario Cadastrado"+pessoaDTO1.getNome()+" com Sucesso") ;
     }
+
      //Mostrar todos os Funcionarios (READ)
     @GetMapping("/lista")
-    public List<PessoaDTO> TodasPessoas(){
-        return pessoaService.ListatodasPessoas();
+    public ResponseEntity<List<PessoaDTO>> TodasPessoas(){
+        List<PessoaDTO> pessoaDTOList = pessoaService.ListatodasPessoas();
+        return ResponseEntity.ok(pessoaDTOList);
     }
 
     //Mostrar Funcionario por id (READ)

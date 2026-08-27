@@ -1,9 +1,10 @@
 package dev.dulciobernardo7.CadastroDePessoas.Tarefas.Controller;
 
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
-import dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model.TarefasModel;
+
 import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasDTO;
 import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,32 +19,51 @@ public class TarefasController {
         this.tarefasService = tarefasService;
     }
 
-    // Adicionar ninja (CREATE)
+    // Adicionar Tarefas (CREATE)
     @PostMapping("/cadastrar")
-    public  TarefasDTO CadastraPessoa(@RequestBody TarefasDTO tarefasDTO){
-        return tarefasService.cadastroDeTarefas(tarefasDTO);
+    public ResponseEntity<String> CadastraPessoa(@RequestBody TarefasDTO tarefasDTO){
+        TarefasDTO tarefasDTO1 = tarefasService.cadastroDeTarefas(tarefasDTO);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Tarefa  Cadastrado: "+tarefasDTO1.getNomeDaTarefa()+" com Sucesso");
     }
-    //Mostrar todos os ninjas (READ)
+    //Mostrar todos os Tarefas (READ)
     @GetMapping("/lista")
-    public List<TarefasDTO> TodasPessoas(){
-        return tarefasService.ListatodasPessoas();
+    public ResponseEntity<List<TarefasDTO>> TodasPessoas(){
+        List<TarefasDTO> tarefasDTOS = tarefasService.ListatodasPessoas();
+        return ResponseEntity.ok(tarefasDTOS);
     }
 
-    //Mostrar ninja por id (READ)
+    //Mostrar Tarefas por id (READ)
     @GetMapping("/lista/{number}")
-    public TarefasDTO MostrarTodasPessoasPorId(@PathVariable Long number){
-        return tarefasService.ListatodasPessoasPorId(number);
+    public ResponseEntity<String> MostrarTodasPessoasPorId(@PathVariable Long number){
+      TarefasDTO tarefasDTO =  tarefasService.ListatodasPessoasPorId(number);
+      if (tarefasDTO != null) {
+          return ResponseEntity.ok("Tarefa  encontrado: "+tarefasDTO.getNomeDaTarefa());
+      }else {
+          return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O ninja com IDs "+number+" Nao encontrado");
+      }
+
     }
 
-    // Alterar dados dos ninjas (UPDATE)
+    // Alterar dados das Tarefas (UPDATE)
     @PostMapping("/altera/{number}")
-    public TarefasDTO AlteraPorId(@PathVariable Long number, @RequestBody TarefasDTO tarefas){
-        return tarefasService.AtualizarTarefas(number,tarefas);
+    public ResponseEntity<?> AlteraPorId(@PathVariable Long number, @RequestBody TarefasDTO tarefas){
+        TarefasDTO tarefasDTO = tarefasService.AtualizarTarefas(number,tarefas);
+        if (tarefasDTO != null){
+            return ResponseEntity.ok(tarefasDTO);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O ninja com IDs "+number+" Nao encontrado");
+        }
     }
 
-    // Deletar Ninja (DELETE)
+    // Deletar Tarefas (DELETE)
     @DeleteMapping("/Deletar/{number}")
-    public void ExcluirPessoaPorId(@PathVariable Long number){
-        tarefasService.ExcluirPessoaPorId(number);
+    public ResponseEntity<String> ExcluirPessoaPorId(@PathVariable Long number){
+        if(tarefasService.ListatodasPessoasPorId(number) != null) {
+            tarefasService.ExcluirPessoaPorId(number);
+            return ResponseEntity.ok("O funcionario  com o IDs "+ number+" Excluido.");
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O ninja com IDs "+number+" Nao encontrado");
+        }
     }
 }
