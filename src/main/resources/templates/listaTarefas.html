@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f4f7f5, #e8f1eb);
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 25px;
+            color: #333;
+        }
+
+        .page-header {
+            max-width: 1100px;
+            margin: 0 auto 25px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            color: #26332a;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .top-bar {
+            max-width: 1100px;
+            margin: 0 auto 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .total {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .total strong {
+            color: #4CAF50;
+        }
+
+        .btn-adicionar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 11px 18px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4CAF50, #43a047);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
+            transition: all 0.2s ease;
+        }
+
+        .btn-adicionar:hover {
+            background: linear-gradient(135deg, #43a047, #388e3c);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(76, 175, 80, 0.30);
+        }
+
+        .table-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e5ebe6;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 700px;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #4CAF50, #43a047);
+        }
+
+        th {
+            padding: 15px 12px;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #edf0ed;
+            font-size: 13px;
+            color: #444;
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f5faf6;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .id {
+            color: #777;
+            font-weight: 600;
+        }
+
+        .nome {
+            color: #26332a;
+            font-weight: 600;
+        }
+
+        .dificuldade {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: #e9f7ed;
+            color: #2e7d46;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .acoes {
+            min-width: 180px;
+            white-space: nowrap;
+        }
+
+        .acoes a {
+            display: inline-block;
+            padding: 7px 10px;
+            margin: 2px;
+            border-radius: 6px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-detalhes {
+            background-color: #2196F3;
+        }
+
+        .btn-detalhes:hover {
+            background-color: #1976D2;
+        }
+
+        .btn-deletar {
+            background-color: #f44336;
+        }
+
+        .btn-deletar:hover {
+            background-color: #d32f2f;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            color: #888;
+        }
+
+        .empty strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .top-bar {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .btn-adicionar {
+                width: 100%;
+            }
+
+            .total {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-header">
+        <h1>Lista de Tarefas</h1>
+        <p>Gerencie as tarefas cadastradas no sistema.</p>
+    </div>
+
+    <div class="top-bar">
+        <div class="total">
+            Tarefas cadastradas:
+            <strong th:text="${#lists.size(tarefas)}">0</strong>
+        </div>
+
+        <a class="btn-adicionar" th:href="@{/tarefas/ui/adicionar}">+ Adicionar Nova Tarefa</a>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Dificuldade</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="tarefa : ${tarefas}">
+                <td class="id" th:text="${tarefa.id}">1</td>
+                <td class="nome" th:text="${tarefa.nomeDaTarefa}">Estudar</td>
+                <td>
+                    <span class="dificuldade" th:text="${tarefa.dificuldade}">Média</span>
+                </td>
+                <td class="acoes">
+                    <a class="btn-detalhes" th:href="@{/tarefas/ui/lista/{number}(number=${tarefa.id})}">Ver</a>
+                    <a class="btn-deletar" th:href="@{/tarefas/ui/deletar/{number}(number=${tarefa.id})}" onclick="return confirm('Tem certeza que deseja excluir esta tarefa?');">Deletar</a>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(tarefas)}">
+                <td colspan="4" class="empty">
+                    <strong>Nenhuma tarefa cadastrada</strong>
+                    Adicione uma nova tarefa para começar.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
