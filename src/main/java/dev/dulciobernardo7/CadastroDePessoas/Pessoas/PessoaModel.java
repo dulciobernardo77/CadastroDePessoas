@@ -1,13 +1,11 @@
-package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model;
+package dev.dulciobernardo7.CadastroDePessoas.Pessoas;
 
-import dev.dulciobernardo7.CadastroDePessoas.Tarefas.Model.TarefasModel;
+import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasModel;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import java.util.List;
 
 
 //Entity ele transforma uma classe em entidade do banco de dados

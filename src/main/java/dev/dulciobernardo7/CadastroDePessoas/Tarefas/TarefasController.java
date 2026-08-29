@@ -1,8 +1,6 @@
-package dev.dulciobernardo7.CadastroDePessoas.Tarefas.Controller;
+package dev.dulciobernardo7.CadastroDePessoas.Tarefas;
 
 
-import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasDTO;
-import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

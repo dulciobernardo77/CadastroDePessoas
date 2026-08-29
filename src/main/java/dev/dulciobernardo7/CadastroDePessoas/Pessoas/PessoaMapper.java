@@ -1,6 +1,5 @@
 package dev.dulciobernardo7.CadastroDePessoas.Pessoas;
 
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.Model.PessoaModel;
 import org.springframework.stereotype.Component;
 
 

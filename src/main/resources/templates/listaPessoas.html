@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lista de Funcionario</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f4f7f5, #e8f1eb);
+            min-height: 100vh;
+            margin: 0;
+            padding: 35px 25px;
+            color: #333;
+        }
+
+        /* =========================
+           CABEÇALHO
+        ========================== */
+
+        .page-header {
+            max-width: 1400px;
+            margin: 0 auto 25px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            color: #26332a;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #777;
+            font-size: 14px;
+        }
+
+        /* =========================
+           ÁREA SUPERIOR
+        ========================== */
+
+        .top-bar {
+            max-width: 1400px;
+            margin: 0 auto 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .total {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .total strong {
+            color: #4CAF50;
+        }
+
+        /* =========================
+           BOTÃO ADICIONAR
+        ========================== */
+
+        .btn-adicionar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            padding: 11px 18px;
+
+            border-radius: 8px;
+
+            background: linear-gradient(135deg, #4CAF50, #43a047);
+            color: white;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            text-decoration: none;
+
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.25);
+
+            transition: all 0.2s ease;
+        }
+
+        .btn-adicionar:hover {
+            background: linear-gradient(135deg, #43a047, #388e3c);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(76, 175, 80, 0.30);
+        }
+
+        /* =========================
+           TABELA
+        ========================== */
+
+        .table-container {
+            max-width: 1400px;
+            margin: 0 auto;
+
+            background: #fff;
+
+            border-radius: 14px;
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+            border: 1px solid #e5ebe6;
+
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 1150px;
+
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #4CAF50, #43a047);
+        }
+
+        th {
+            padding: 15px 12px;
+
+            color: #fff;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            text-align: left;
+
+            white-space: nowrap;
+        }
+
+        td {
+            padding: 13px 12px;
+
+            border-bottom: 1px solid #edf0ed;
+
+            font-size: 13px;
+
+            color: #444;
+
+            vertical-align: middle;
+        }
+
+        tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #f5faf6;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* =========================
+           ID
+        ========================== */
+
+        .id {
+            color: #777;
+            font-weight: 600;
+        }
+
+        /* =========================
+           IMAGEM
+        ========================== */
+
+        .foto {
+            width: 55px;
+            height: 55px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border: 3px solid #e2f0e4;
+
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        /* =========================
+           NOME
+        ========================== */
+
+        .nome {
+            color: #26332a;
+            font-weight: 600;
+        }
+
+        /* =========================
+           NÍVEL
+        ========================== */
+
+        .nivel {
+            display: inline-block;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            background: #e9f7ed;
+
+            color: #2e7d46;
+
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* =========================
+           SEXO
+        ========================== */
+
+        .sexo {
+            display: inline-block;
+
+            padding: 5px 9px;
+
+            border-radius: 6px;
+
+            background: #f2f4f2;
+
+            color: #555;
+
+            font-size: 12px;
+        }
+
+        /* =========================
+           TAREFA
+        ========================== */
+
+        .tarefa {
+            min-width: 180px;
+
+            line-height: 1.6;
+        }
+
+        .tarefa-nome {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .dificuldade {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .sem-tarefa {
+            color: #999;
+            font-style: italic;
+        }
+
+        /* =========================
+           AÇÕES
+        ========================== */
+
+        .acoes {
+            min-width: 230px;
+            white-space: nowrap;
+        }
+
+        .acoes a {
+            display: inline-block;
+
+            padding: 7px 10px;
+
+            margin: 2px;
+
+            border-radius: 6px;
+
+            color: white;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            text-decoration: none;
+
+            transition: all 0.2s ease;
+        }
+
+        .btn-detalhes {
+            background-color: #2196F3;
+        }
+
+        .btn-detalhes:hover {
+            background-color: #1976D2;
+        }
+
+        .btn-alterar {
+            background-color: #ff9800;
+        }
+
+        .btn-alterar:hover {
+            background-color: #f57c00;
+        }
+
+        .btn-deletar {
+            background-color: #f44336;
+        }
+
+        .btn-deletar:hover {
+            background-color: #d32f2f;
+        }
+
+        /* =========================
+           ESTADO VAZIO
+        ========================== */
+
+        .empty {
+            text-align: center;
+            padding: 45px 20px;
+            color: #888;
+        }
+
+        .empty strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #555;
+            font-size: 16px;
+        }
+
+        /* =========================
+           RESPONSIVIDADE
+        ========================== */
+
+        @media (max-width: 700px) {
+
+            body {
+                padding: 25px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .top-bar {
+                flex-direction: column-reverse;
+                align-items: stretch;
+            }
+
+            .btn-adicionar {
+                width: 100%;
+            }
+
+            .total {
+                text-align: center;
+            }
+
+            .table-container {
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     CABEÇALHO
+========================== -->
+
+<div class="page-header">
+
+    <h1>Lista de Funcionario</h1>
+
+    <p>
+        Gerencie os Funcionario cadastrados no sistema.
+    </p>
+
+</div>
+
+
+<!-- =========================
+     BARRA SUPERIOR
+========================== -->
+
+<div class="top-bar">
+
+    <div class="total">
+        Funcionario cadastrados:
+        <strong th:text="${#lists.size(pessoas)}">0</strong>
+    </div>
+
+    <a
+            class="btn-adicionar"
+            th:href="@{/pessoas/ui/adicionar}">
+
+        + Adicionar Novo Funcionario
+
+    </a>
+
+</div>
+
+
+<!-- =========================
+     TABELA
+========================== -->
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+            <th>Imagem</th>
+            <th>Nome</th>
+            <th>Idade</th>
+            <th>Nacionalidade</th>
+            <th>BI</th>
+            <th>Sexo</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Nível</th>
+            <th>Tarefa</th>
+            <th>Ações</th>
+
+        </tr>
+
+        </thead>
+
+
+        <tbody>
+
+        <!-- =========================
+             LISTA DE PESSOAS
+        ========================== -->
+
+        <tr th:each="pessoa : ${pessoas}">
+
+            <!-- ID -->
+            <td class="id"
+                th:text="${pessoa.id}">
+                1
+            </td>
+
+
+            <!-- IMAGEM -->
+            <td>
+
+                <img
+                        class="foto"
+                        th:src="${pessoa.imgUrl}"
+                        alt="Foto do ninja">
+
+            </td>
+
+
+            <!-- NOME -->
+            <td class="nome"
+                th:text="${pessoa.nome}">
+                Naruto
+            </td>
+
+
+            <!-- IDADE -->
+            <td th:text="${pessoa.idade}">
+                20
+            </td>
+
+
+            <!-- NACIONALIDADE -->
+            <td th:text="${pessoa.nacionalidade}">
+                Angolana
+            </td>
+
+
+            <!-- BI -->
+            <td th:text="${pessoa.bi}">
+                000000000
+            </td>
+
+
+            <!-- SEXO -->
+            <td>
+
+                        <span
+                                class="sexo"
+                                th:text="${pessoa.sexo}">
+                            Masculino
+                        </span>
+
+            </td>
+
+
+            <!-- EMAIL -->
+            <td th:text="${pessoa.email}">
+                email@example.com
+            </td>
+
+
+            <!-- TELEFONE -->
+            <td th:text="${pessoa.telefone}">
+                923000000
+            </td>
+
+
+            <!-- NÍVEL -->
+            <td>
+
+                        <span
+                                class="nivel"
+                                th:text="${pessoa.nivel}">
+                            Genin
+                        </span>
+
+            </td>
+
+
+            <!-- TAREFA -->
+            <td class="tarefa">
+
+                        <span th:if="${pessoa.tarefa}">
+
+                            <span
+                                    class="tarefa-nome"
+                                    th:text="${pessoa.tarefa.nomeDaTarefa}">
+                                Missão
+                            </span>
+
+                            <br>
+
+                            <span class="dificuldade">
+                                Dificuldade:
+                                <strong
+                                        th:text="${pessoa.tarefa.dificuldade}">
+                                    Fácil
+                                </strong>
+                            </span>
+
+                        </span>
+
+
+                <span
+                        class="sem-tarefa"
+                        th:if="${pessoa.tarefa == null}">
+
+                            Sem Missões
+
+                        </span>
+
+            </td>
+
+
+            <!-- AÇÕES -->
+            <td class="acoes">
+
+                <a
+                        class="btn-detalhes"
+                        th:href="@{/pessoas/ui/lista/{number}(number=${pessoa.id})}">
+
+                    Ver
+
+                </a>
+
+
+                <a
+                        class="btn-alterar"
+                        th:href="@{/pessoas/ui/detalhesPessoas/{number}(number=${pessoa.id})}">
+
+                    Alterar
+
+                </a>
+
+
+                <a
+                        class="btn-deletar"
+                        th:href="@{/pessoas/ui/deletar/{number}(number=${pessoa.id})}"
+                        onclick="return confirm('Tem certeza que deseja deletar este ninja?');">
+
+                    Deletar
+
+                </a>
+
+            </td>
+
+        </tr>
+
+
+        <!-- =========================
+             LISTA VAZIA
+        ========================== -->
+
+        <tr th:if="${#lists.isEmpty(pessoas)}">
+
+            <td
+                    colspan="12"
+                    class="empty">
+
+                <strong>Nenhum ninja cadastrado</strong>
+
+                Adicione um novo ninja para começar.
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+
+</html>

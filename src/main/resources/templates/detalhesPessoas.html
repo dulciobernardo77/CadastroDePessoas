@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detalhes do Funcionario</title>
+
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #f4f7f5, #e8f1eb);
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            color: #26332a;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: #777;
+            font-size: 15px;
+        }
+
+        .details-container {
+            background-color: #fff;
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e9eee9;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            margin: 0 auto 18px;
+            border: 5px solid #e9f7ee;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .profile h2 {
+            margin: 0;
+            color: #26332a;
+            font-size: 25px;
+            font-weight: 700;
+        }
+
+        .info-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 20px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            background-color: #fafbfa;
+            border: 1px solid #e1e7e2;
+            border-radius: 8px;
+            padding: 13px 15px;
+        }
+
+        .info-item.full {
+            grid-column: 1 / -1;
+        }
+
+        .info-label {
+            display: block;
+            color: #4CAF50;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            color: #444;
+            font-size: 14px;
+            word-break: break-word;
+        }
+
+        .missions-section {
+            margin-top: 10px;
+        }
+
+        .missions-section h3 {
+            margin: 0 0 15px;
+            color: #26332a;
+            font-size: 20px;
+        }
+
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e1e7e2;
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        th {
+            padding: 12px 15px;
+            text-align: left;
+            background: linear-gradient(135deg, #4CAF50, #43a047);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e9e6;
+            color: #555;
+            font-size: 14px;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background-color: #f4f8f5;
+        }
+
+        .no-missions {
+            padding: 15px;
+            text-align: center;
+            color: #888;
+            background-color: #fafbfa;
+            border: 1px solid #e1e7e2;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: block;
+            width: fit-content;
+            margin: 22px auto 0;
+            text-decoration: none;
+            color: #4CAF50;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: #388e3c;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 25px 15px;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .details-container {
+                padding: 25px 20px;
+                border-radius: 12px;
+            }
+
+            .profile img {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile h2 {
+                font-size: 22px;
+            }
+
+            .info-container {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .info-item.full {
+                grid-column: auto;
+            }
+
+            th,
+            td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-header">
+    <h1>Detalhes do Funcionario</h1>
+    <p>Confira abaixo as informações do funcionario.</p>
+</div>
+
+<div class="details-container">
+
+    <div class="profile">
+        <img
+                th:src="${pessoas.imgUrl}"
+                th:alt="${pessoas.nome}">
+
+        <h2 th:text="${pessoas.nome}"></h2>
+    </div>
+
+    <div class="info-container">
+
+        <div class="info-item full">
+            <span class="info-label">Email</span>
+            <span class="info-value" th:text="${pessoas.email}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Idade</span>
+            <span class="info-value" th:text="${pessoas.idade}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Nível</span>
+            <span class="info-value" th:text="${pessoas.nivel}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Sexo</span>
+            <span class="info-value" th:text="${pessoas.sexo}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Nacionalidade</span>
+            <span class="info-value" th:text="${pessoas.nacionalidade}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">Telefone</span>
+            <span class="info-value" th:text="${pessoas.telefone}"></span>
+        </div>
+
+        <div class="info-item">
+            <span class="info-label">BI</span>
+            <span class="info-value" th:text="${pessoas.bi}"></span>
+        </div>
+
+    </div>
+
+    <div class="missions-section">
+
+        <h3>Missões</h3>
+
+        <div
+                class="no-missions"
+                th:if="${pessoas.tarefa == null or #lists.isEmpty(pessoas.tarefa)}">
+            Nenhuma missão atribuída a este funcionario.
+        </div>
+
+        <div
+                class="table-container"
+                th:if="${pessoas.tarefa != null and !#lists.isEmpty(pessoas.tarefa)}">
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Dificuldade</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr th:each="tarefa : ${pessoas.tarefa}">
+                    <td th:text="${tarefa.nomeDaTarefa}"></td>
+                    <td th:text="${tarefa.dificuldade}"></td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<a
+        class="back-link"
+        th:href="@{/pessoas/ui/lista}">
+    ← Voltar para a lista de ninjas
+</a>
+
+</body>
+</html>

@@ -1,8 +1,6 @@
-package dev.dulciobernardo7.CadastroDePessoas.Pessoas.Controller;
+package dev.dulciobernardo7.CadastroDePessoas.Pessoas;
 
 
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaDTO;
-import dev.dulciobernardo7.CadastroDePessoas.Pessoas.PessoaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
