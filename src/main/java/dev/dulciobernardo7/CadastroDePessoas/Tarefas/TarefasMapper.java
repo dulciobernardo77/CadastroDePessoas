@@ -11,6 +11,7 @@ public class TarefasMapper {
         tarefasModel.setId(tarefasDTO.getId());
         tarefasModel.setNomeDaTarefa(tarefasDTO.getNomeDaTarefa());
         tarefasModel.setDificuldade(tarefasDTO.getDificuldade());
+        tarefasModel.setPessoas(tarefasDTO.getPessoas());
         return tarefasModel;
     }
 
@@ -20,6 +21,7 @@ public class TarefasMapper {
         tarefasDTO.setId(tarefasModel.getId());
         tarefasDTO.setNomeDaTarefa(tarefasModel.getNomeDaTarefa());
         tarefasDTO.setDificuldade(tarefasModel.getDificuldade());
+        tarefasDTO.setPessoas(tarefasModel.getPessoas());
         return tarefasDTO;
 
     }

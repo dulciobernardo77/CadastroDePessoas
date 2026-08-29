@@ -27,14 +27,14 @@ public class TarefasController {
     //Mostrar todos os Tarefas (READ)
     @GetMapping("/lista")
     public ResponseEntity<List<TarefasDTO>> TodasPessoas(){
-        List<TarefasDTO> tarefasDTOS = tarefasService.ListatodasPessoas();
+        List<TarefasDTO> tarefasDTOS = tarefasService.ListatodasTarefas();
         return ResponseEntity.ok(tarefasDTOS);
     }
 
     //Mostrar Tarefas por id (READ)
     @GetMapping("/lista/{number}")
     public ResponseEntity<String> MostrarTodasPessoasPorId(@PathVariable Long number){
-      TarefasDTO tarefasDTO =  tarefasService.ListatodasPessoasPorId(number);
+      TarefasDTO tarefasDTO =  tarefasService.ListatodasTarefasPorId(number);
       if (tarefasDTO != null) {
           return ResponseEntity.ok("Tarefa  encontrado: "+tarefasDTO.getNomeDaTarefa());
       }else {
@@ -57,8 +57,8 @@ public class TarefasController {
     // Deletar Tarefas (DELETE)
     @DeleteMapping("/Deletar/{number}")
     public ResponseEntity<String> ExcluirPessoaPorId(@PathVariable Long number){
-        if(tarefasService.ListatodasPessoasPorId(number) != null) {
-            tarefasService.ExcluirPessoaPorId(number);
+        if(tarefasService.ListatodasTarefasPorId(number) != null) {
+            tarefasService.ExcluirTarefasPorId(number);
             return ResponseEntity.ok("O funcionario  com o IDs "+ number+" Excluido.");
         }else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O ninja com IDs "+number+" Nao encontrado");

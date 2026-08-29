@@ -20,7 +20,7 @@ public class TarefasService {
 
 
     //Metodo para lista todo as tarefas
-    public List<TarefasDTO> ListatodasPessoas(){
+    public List<TarefasDTO> ListatodasTarefas(){
         List<TarefasModel> tarefasModelList = tarefasRepository.findAll();
          return tarefasModelList.stream()
                  .map(tarefasMapper::map)
@@ -28,7 +28,7 @@ public class TarefasService {
     }
 
     //Metodo para lista todo as Tarefas pelo id
-   public TarefasDTO ListatodasPessoasPorId(Long number){
+   public TarefasDTO ListatodasTarefasPorId(Long number){
         Optional<TarefasModel> tarefasModel = tarefasRepository.findById(number);
         return tarefasModel.map(tarefasMapper::map)
                 .orElse(null);
@@ -54,7 +54,7 @@ public class TarefasService {
     }
 
     //Metodo para Deletar Tarefas (DELETE)
-    public void ExcluirPessoaPorId(Long number){
+    public void ExcluirTarefasPorId(Long number){
         tarefasRepository.deleteById(number);
     }
 
