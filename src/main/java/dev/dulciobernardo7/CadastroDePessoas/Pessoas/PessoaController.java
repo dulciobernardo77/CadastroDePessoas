@@ -34,7 +34,7 @@ public class PessoaController {
             @ApiResponse(responseCode = "201", description = "Pessoa cadastrada com sucesso."),
             @ApiResponse(responseCode = "400", description = "Dados inválidos para cadastro.")
     })
-    public ResponseEntity<String> CadastraPessoa(@RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<String> cadastraPessoa(@RequestBody PessoaDTO pessoaDTO) {
         PessoaDTO pessoaDTO1 = pessoaService.cadastroDeFuncionario(pessoaDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Funcionario Cadastrado" + pessoaDTO1.getNome() + " com Sucesso");
     }
@@ -42,7 +42,7 @@ public class PessoaController {
     @GetMapping("/lista")
     @Operation(summary = "Listar pessoas", description = "Retorna todas as pessoas cadastradas.")
     @ApiResponse(responseCode = "200", description = "Lista de pessoas retornada com sucesso.")
-    public ResponseEntity<List<PessoaDTO>> TodasPessoas() {
+    public ResponseEntity<List<PessoaDTO>> todasPessoas() {
         List<PessoaDTO> pessoaDTOList = pessoaService.ListatodasPessoas();
         return ResponseEntity.ok(pessoaDTOList);
     }
@@ -53,19 +53,19 @@ public class PessoaController {
             @ApiResponse(responseCode = "200", description = "Pessoa encontrada com sucesso."),
             @ApiResponse(responseCode = "404", description = "Pessoa não encontrada.")
     })
-    public ResponseEntity<String> MostrarTodasPessoasPorId(
+    public ResponseEntity<String> mostrarTodasPessoasPorId(
             @Parameter(name = "number", description = "ID da pessoa", required = true, in = ParameterIn.PATH)
             @PathVariable Long number) {
 
         PessoaDTO pessoaDTO = pessoaService.ListatodasPessoasporId(number);
         if (pessoaDTO != null) {
-            return ResponseEntity.ok("Funcionario encontrado: " + pessoaDTO.getNome());
+            return ResponseEntity.ok("Funcionario com o IDs " + number + " encontrado: " + pessoaDTO.getNome());
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O Funcionario com IDs " + number + " Nao encontrado");
         }
     }
 
-    @PutMapping("/alterar/{number}")
+    @PutMapping("/alterar/{id}")
     @Operation(summary = "Atualizar pessoa", description = "Atualiza os dados de uma pessoa existente pelo ID.")
     @ApiResponses({
             @ApiResponse(responseCode = "200", description = "Pessoa atualizada com sucesso."),
@@ -96,7 +96,7 @@ public class PessoaController {
             pessoaService.ExcluirPessoaPorId(number);
             return ResponseEntity.ok("O funcionario  com o IDs " + number + " Excluido.");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O ninja com IDs " + number + " Nao encontrado");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("O Funcionario com IDs " + number + " Nao encontrado");
         }
     }
 }

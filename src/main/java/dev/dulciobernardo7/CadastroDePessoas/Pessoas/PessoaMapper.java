@@ -17,7 +17,7 @@ public class PessoaMapper {
         pessoaModel.setEmail(pessoaDTO.getEmail());
         pessoaModel.setTelefone(pessoaDTO.getTelefone());
         pessoaModel.setNivel(pessoaDTO.getNivel());
-        pessoaModel.setImgUrl(pessoaModel.getImgUrl());
+        pessoaModel.setImgUrl(pessoaDTO.getImgUrl());
         pessoaModel.setTarefa(pessoaDTO.getTarefa());
         return pessoaModel;
     }
