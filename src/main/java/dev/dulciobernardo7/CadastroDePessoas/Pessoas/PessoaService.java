@@ -20,8 +20,7 @@ public class PessoaService {
     public List<PessoaDTO> ListatodasPessoas(){
         List<PessoaModel> pessoaModelList = pessoasRepository.findAll();
         return  pessoaModelList.stream()
-                .map(pessoaMapper::map)
-                .collect(Collectors.toList());
+        .map(pessoaMapper::map).collect(Collectors.toList());
     }
 
     //Metodo para lista todo as pessoas pelo id
