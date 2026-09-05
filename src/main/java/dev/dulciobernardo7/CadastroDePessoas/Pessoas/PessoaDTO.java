@@ -2,9 +2,10 @@ package dev.dulciobernardo7.CadastroDePessoas.Pessoas;
 
 import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasModel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
