@@ -1,28 +1,31 @@
 package dev.dulciobernardo7.CadastroDePessoas.Tarefas;
 
 
+import lombok.experimental.UtilityClass;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TarefasMapper {
 
-    public TarefasModel map(TarefasDTO tarefasDTO){
-        TarefasModel tarefasModel = new TarefasModel();
-        tarefasModel.setId(tarefasDTO.getId());
-        tarefasModel.setNomeDaTarefa(tarefasDTO.getNomeDaTarefa());
-        tarefasModel.setDificuldade(tarefasDTO.getDificuldade());
-        tarefasModel.setPessoas(tarefasDTO.getPessoas());
-        return tarefasModel;
+    public  TarefasModel map(TarefasDTO tarefasDTO){
+        return TarefasModel
+                .builder()
+                .id(tarefasDTO.getId())
+                .nomeDaTarefa(tarefasDTO.getNomeDaTarefa())
+                .dificuldade(tarefasDTO.getDificuldade())
+                .pessoas(tarefasDTO.getPessoas())
+                .build();
     }
 
     public TarefasDTO map(TarefasModel tarefasModel){
 
-        TarefasDTO tarefasDTO = new TarefasDTO();
-        tarefasDTO.setId(tarefasModel.getId());
-        tarefasDTO.setNomeDaTarefa(tarefasModel.getNomeDaTarefa());
-        tarefasDTO.setDificuldade(tarefasModel.getDificuldade());
-        tarefasDTO.setPessoas(tarefasModel.getPessoas());
-        return tarefasDTO;
+        return  TarefasDTO
+                .builder()
+                .id(tarefasModel.getId())
+                .nomeDaTarefa(tarefasModel.getNomeDaTarefa())
+                .dificuldade(tarefasModel.getDificuldade())
+                .pessoas(tarefasModel.getPessoas())
+                .build();
 
     }
 }
