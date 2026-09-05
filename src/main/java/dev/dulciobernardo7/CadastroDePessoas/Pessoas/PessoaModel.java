@@ -2,15 +2,13 @@ package dev.dulciobernardo7.CadastroDePessoas.Pessoas;
 
 import dev.dulciobernardo7.CadastroDePessoas.Tarefas.TarefasModel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 
 //Entity ele transforma uma classe em entidade do banco de dados
 @Entity
 @Table(name = "tb_Cadastro_de_Pessoas")
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
